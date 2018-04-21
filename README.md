@@ -1,0 +1,2 @@
+# Seci
+Seci Coin
