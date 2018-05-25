@@ -1,0 +1,11 @@
+prefix=/
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: SECI Core consensus library
+Description: Library for the SECI consensus protocol.
+Version: 1.14.7
+Libs: -L${libdir} -lseciconsensus
+Cflags: -I${includedir}
+Requires.private: libcrypto

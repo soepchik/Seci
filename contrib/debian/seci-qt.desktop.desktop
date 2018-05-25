@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Straks
+Comment=Straks P2P Cryptocurrency
+Exec=seci-qt %u
+Terminal=false
+Type=Application
+Icon=seci128
+MimeType=x-scheme-handler/seci;
+Categories=Office;Finance;
+Name[en_GB]=seci-qt.desktop

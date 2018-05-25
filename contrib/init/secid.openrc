@@ -1,0 +1,92 @@
+#!/sbin/runscript
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/seci/.seci" ]; then
+	SECID_DEFAULT_DATADIR="/var/lib/seci/.seci"
+else
+	SECID_DEFAULT_DATADIR="/var/lib/secid"
+fi
+
+SECID_CONFIGFILE=${SECID_CONFIGFILE:-/etc/seci/seci.conf}
+SECID_PIDDIR=${SECID_PIDDIR:-/var/run/secid}
+SECID_PIDFILE=${SECID_PIDFILE:-${SECID_PIDDIR}/secid.pid}
+SECID_DATADIR=${SECID_DATADIR:-${SECID_DEFAULT_DATADIR}}
+SECID_USER=${SECID_USER:-${SECI_USER:-seci}}
+SECID_GROUP=${SECID_GROUP:-seci}
+SECID_BIN=${SECID_BIN:-/usr/bin/secid}
+SECID_NICE=${SECID_NICE:-${NICELEVEL:-0}}
+SECID_OPTS="${SECID_OPTS:-${SECI_OPTS}}"
+
+name="Straks Core Daemon"
+description="Straks cryptocurrency P2P network daemon"
+
+command="/usr/bin/secid"
+command_args="-pid=\"${SECID_PIDFILE}\" \
+		-conf=\"${SECID_CONFIGFILE}\" \
+		-datadir=\"${SECID_DATADIR}\" \
+		-daemon \
+		${SECID_OPTS}"
+
+required_files="${SECID_CONFIGFILE}"
+start_stop_daemon_args="-u ${SECID_USER} \
+			-N ${SECID_NICE} -w 2000"
+pidfile="${SECID_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${SECID_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${SECID_USER}:${SECID_GROUP}" \
+	"${SECID_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${SECID_USER}:${SECID_GROUP}" \
+	"${SECID_PIDDIR}"
+
+	checkpath -f \
+	-o ${SECID_USER}:${SECID_GROUP} \
+	-m 0660 \
+	${SECID_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${SECID_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run secid."
+		eerror "The setting must appear in ${SECID_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"Straks Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

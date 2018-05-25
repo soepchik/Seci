@@ -1,0 +1,33 @@
+# /etc/conf.d/secid: config file for /etc/init.d/secid
+
+# Config file location
+#SECID_CONFIGFILE="/etc/seci/seci.conf"
+
+# What directory to write pidfile to?  (created and owned by $SECID_USER)
+#SECID_PIDDIR="/var/run/secid"
+
+# What filename to give the pidfile
+#SECID_PIDFILE="${SECID_PIDDIR}/secid.pid"
+
+# Where to write secid data (be mindful that the blockchain is large)
+#SECID_DATADIR="/var/lib/secid"
+
+# User and group to own secid process
+#SECID_USER="seci"
+#SECID_GROUP="seci"
+
+# Path to secid executable
+#SECID_BIN="/usr/bin/secid"
+
+# Nice value to run secid under
+#SECID_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+SECID_OPTS="-disablewallet"
+
+# The timeout in seconds OpenRC will wait for secid to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+SECID_SIGTERM_TIMEOUT=60

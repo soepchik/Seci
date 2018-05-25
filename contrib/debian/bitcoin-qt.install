@@ -1,0 +1,6 @@
+usr/local/bin/seci-qt usr/bin
+share/pixmaps/seci32.xpm usr/share/pixmaps
+share/pixmaps/seci16.xpm usr/share/pixmaps
+share/pixmaps/seci128.png usr/share/pixmaps
+debian/seci-qt.desktop usr/share/applications
+debian/seci-qt.protocol usr/share/kde4/services/

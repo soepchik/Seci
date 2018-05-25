@@ -1,0 +1,22 @@
+[Unit]
+Description=Straks's distributed currency daemon
+After=network.target
+
+[Service]
+User=seci
+Group=seci
+
+Type=forking
+PIDFile=/var/lib/secid/secid.pid
+ExecStart=/usr/bin/secid -daemon -pid=/var/lib/secid/secid.pid \
+-conf=/etc/seci/seci.conf -datadir=/var/lib/secid -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
