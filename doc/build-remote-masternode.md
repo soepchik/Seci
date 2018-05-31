@@ -1,10 +1,10 @@
-## REMOTE MASTERNODE BUILD NOTES
+## REMOTE SECINODE BUILD NOTES
 
 #### System requirements
 
 ##### Remote:
 An Ubuntu 16.04 64bit server is recommended with at least 768MB
-of memory and 10GB space available when running a Masternode.
+of memory and 10GB space available when running a SeciNode.
 
 ##### Local:
 Windows 7 64 bit or newer, or Ubuntu 16.04 64bit Desktop.
@@ -19,7 +19,7 @@ instead of using the SECI Qt wallet.
 
 1.  Download latest version of SECI Qt client for windows or linux
 
-        https://github.com/seci/seci/releases
+        https://github.com/Seci-Coin/Seci/releases
 
 2.  Create seci.conf file with the following contents:
 
@@ -45,7 +45,7 @@ listen=1
 5.  In the console enter: `masternode genkey`
     Copy the generated private key to a text file.
 
-5.  Send exactly 15,000 SECI in a single transaction to the address generated from Step 4
+5.  Send exactly 30,000 SECI in a single transaction to the address generated from Step 4
 
 6.  After you have received the SECI from Step 5, go to Help --> Debug Window --> Console and enter: `masternode outputs`
     
@@ -81,7 +81,7 @@ promode=1
 
 1.  Download latest version of SECI linux amd64 release
 
-        https://github.com/seci/seci/releases
+        https://github.com/Seci-Coin/Seci/releases
 2.  Create seci.conf file with the following contents:
 
 ```
