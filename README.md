@@ -130,7 +130,7 @@ __________________________________________________________________________
 ### Clone the Repo and Build Seci
 
     git clone https://github.com/seci-coin/seci
-    cd Seci
+    cd seci
     ./autogen.sh
     ./configure
     make
