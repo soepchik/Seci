@@ -3,8 +3,7 @@
 #### System requirements
 
 ##### Remote:
-An Ubuntu 16.04 64bit server is recommended with at least 768MB
-of memory and 10GB space available when running a SeciNode.
+An Ubuntu 16.04 64bit server is recommended with at least 768MB of memory and 10GB space available when running a SeciNode. Note that you may need to enable a swap file/virtual memory to complete the SECI build on the remote machine. Example: A server w/ 1GB of memory will likely need an additional 1GB SWAP file to complete the build.
 
 ##### Local:
 Windows 7 64 bit or newer, or Ubuntu 16.04 64bit Desktop.
